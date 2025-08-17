@@ -1874,13 +1874,17 @@ fn parse_mtl_line(
 ///   See [`LoadOptions`] for more information.
 pub fn load_obj<P>(file_name: P, load_options: &LoadOptions) -> LoadResult
 where
-    P: AsRef<Path> + fmt::Debug,
+    P: AsRef<Path>,
 {
     let file = match File::open(file_name.as_ref()) {
         Ok(f) => f,
         Err(_e) => {
             #[cfg(feature = "log")]
-            log::error!("load_obj - failed to open {:?} due to {}", file_name, _e);
+            log::error!(
+                "load_obj - failed to open {} due to {}",
+                file_name.as_ref().display(),
+                _e
+            );
             return Err(LoadError::OpenFileFailed);
         }
     };
@@ -1902,13 +1906,17 @@ where
 /// containing a mapping of material names to indices in the Vec.
 pub fn load_mtl<P>(file_name: P) -> MTLLoadResult
 where
-    P: AsRef<Path> + fmt::Debug,
+    P: AsRef<Path>,
 {
     let file = match File::open(file_name.as_ref()) {
         Ok(f) => f,
         Err(_e) => {
             #[cfg(feature = "log")]
-            log::error!("load_mtl - failed to open {:?} due to {}", file_name, _e);
+            log::error!(
+                "load_mtl - failed to open {} due to {}",
+                file_name.as_ref().display(),
+                _e
+            );
             return Err(LoadError::OpenFileFailed);
         }
     };
@@ -2282,13 +2290,17 @@ pub mod tokio {
     /// [module-level](tokio) documentation for more.
     pub async fn load_obj<P>(file_name: P, load_options: &LoadOptions) -> LoadResult
     where
-        P: AsRef<Path> + fmt::Debug,
+        P: AsRef<Path>,
     {
         let file = match File::open(file_name.as_ref()).await {
             Ok(f) => f,
             Err(_e) => {
                 #[cfg(feature = "log")]
-                log::error!("load_obj - failed to open {:?} due to {}", file_name, _e);
+                log::error!(
+                    "load_obj - failed to open {} due to {}",
+                    file_name.as_ref().display(),
+                    _e
+                );
                 return Err(LoadError::OpenFileFailed);
             }
         };
@@ -2318,13 +2330,17 @@ pub mod tokio {
     /// [module-level](tokio) documentation for more.
     pub async fn load_mtl<P>(file_name: P) -> MTLLoadResult
     where
-        P: AsRef<Path> + fmt::Debug,
+        P: AsRef<Path>,
     {
         let file = match File::open(file_name.as_ref()).await {
             Ok(f) => f,
             Err(_e) => {
                 #[cfg(feature = "log")]
-                log::error!("load_mtl - failed to open {:?} due to {}", file_name, _e);
+                log::error!(
+                    "load_mtl - failed to open {} due to {}",
+                    file_name.as_ref().display(),
+                    _e
+                );
                 return Err(LoadError::OpenFileFailed);
             }
         };
